@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RK Creative BD</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background: #0a0a0a;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* New Background Animation */
+    body::before {
+      content:"";
+      position:fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(200, 0, 0, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(150, 0, 0, 0.2) 0%, transparent 30%),
+        radial-gradient(circle at 40% 60%, rgba(100, 0, 0, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 60% 40%, rgba(50, 0, 0, 0.2) 0%, transparent 40%);
+      z-index:-2;
+      animation: gradientPulse 15s ease infinite;
+    }
+    
+    @keyframes gradientPulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+    }
+    
+    /* Additional background elements */
+    body::after {
+      content:"";
+      position:fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: 
+        linear-gradient(135deg, rgba(20, 0, 0, 0.7) 0%, rgba(10, 0, 0, 0.9) 100%);
+      z-index:-1;
+    }
+
+    header {
+      position:fixed; top:0; left:0; right:0;
+      background: rgba(10,0,0,0.8);
+      backdrop-filter: blur(8px);
+      border-bottom:1px solid rgba(255,0,0,0.2);
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 2rem;
+      z-index:1000;
+    }
+    header h1 { font-size:1.2rem; font-weight:bold; color:#ff0a0a; }
+    nav a {
+      margin-left: 1rem;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+    nav a:hover { color:#ff0a0a; }
+
+    section {
+      padding: 100px 20px;
+      max-width: 1000px;
+      margin:auto;
+      position: relative;
+    }
+    
+    section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,0,0,0.5), transparent);
+    }
+    
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #ff0a0a, #ff5e5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: titleGlow 2s ease infinite alternate;
+    }
+    
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 5px rgba(255,10,10,0.3); }
+      100% { text-shadow: 0 0 15px rgba(255,10,10,0.6); }
+    }
+    
+    section p { color:#bbb; margin-bottom:20px; }
+
+    .hero {
+      height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start;
+      text-align:left;
+    }
+    .hero h1 { 
+      font-size:3rem; 
+      line-height:1.2;
+      animation: fadeInUp 1s ease;
+    }
+    .hero span {
+      background:linear-gradient(90deg,#ff0a0a,#ff5e5e);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow: 0 0 10px rgba(255,0,0,0.3);
+    }
+    .btn {
+      display:inline-block;
+      padding:10px 20px;
+      border-radius:20px;
+      background:linear-gradient(90deg,#ff0a0a,#ff5e5e);
+      margin-top:20px;
+      transition:0.3s;
+      animation: pulse 2s infinite;
+    }
+    .btn:hover { 
+      opacity:0.8; 
+      transform: translateY(-2px);
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,10,10,0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(255,10,10,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,10,10,0); }
+    }
+
+    .card {
+      background: rgba(20,0,0,0.3);
+      border: 1px solid rgba(255,0,0,0.1);
+      border-radius:12px;
+      padding:20px;
+      margin:10px;
+      flex:1;
+      transition:0.3s;
+      backdrop-filter: blur(5px);
+    }
+    .card:hover { 
+      transform:translateY(-5px); 
+      border-color: rgba(255,0,0,0.3);
+      box-shadow: 0 10px 20px rgba(255,0,0,0.1);
+    }
+
+    .grid { display:grid; gap:20px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); }
+
+    /* Skill bar */
+    .skill { margin:15px 0; }
+    .skill-name { margin-bottom:5px; color:#ccc; }
+    .bar {
+      background:#200;
+      border-radius:10px;
+      overflow:hidden;
+    }
+    .bar span {
+      display:block;
+      height:10px;
+      background:linear-gradient(90deg,#ff0a0a,#ff5e5e);
+      width:0%;
+      animation: loadBar 2s forwards;
+    }
+    @keyframes loadBar {
+      to { width: var(--value); }
+    }
+
+    /* Reviews carousel */
+    .reviews { text-align:center; }
+    .review-text { font-style:italic; margin:20px 0; color:#ccc; }
+    .stars { color:#ff0a0a; }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      margin: 30px 0;
+      justify-content: center;
+    }
+    
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,0,0,0.1);
+      color: #ff5e5e;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      background: rgba(255,0,0,0.3);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    
+    /* Section Footer */
+    .section-footer {
+      margin-top: 40px;
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,0,0,0.1);
+    }
+
+    footer {
+      text-align:center;
+      padding:20px;
+      border-top:1px solid rgba(255,0,0,0.1);
+      color:#888;
+      position: relative;
+    }
+    
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,0,0,0.5), transparent);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      nav {
+        margin-top: 10px;
+      }
+      nav a {
+        margin: 0 0.5rem;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .social-icons {
+        gap: 10px;
+      }
+      .social-icons a {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>RK Creative BD</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#connect">Connect</a>
+    </nav>
+  </header>
+
+  <!-- Home -->
+  <section class="hero" id="home">
+    <h1>Elevate your brand with <br><span>RK Creative BD</span></h1>
+    <p>Dark, dynamic visuals & designs that inspire.</p>
+    <a href="#portfolio" class="btn">View Portfolio</a>
+    
+    <div class="section-footer">
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+        <a href="#" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About</h2>
+    <p>I'm Rezaul Karim — a graphics designer & digital artist specializing in Photoshop, Illustrator, motion graphics, and modern web UI.</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Skills</h3>
+        <div class="skill"><div class="skill-name">Photoshop</div><div class="bar"><span style="--value:95%"></span></div></div>
+        <div class="skill"><div class="skill-name">Illustrator</div><div class="bar"><span style="--value:92%"></span></div></div>
+        <div class="skill"><div class="skill-name">Motion Graphics</div><div class="bar"><span style="--value:88%"></span></div></div>
+        <div class="skill"><div class="skill-name">UI / Web</div><div class="bar"><span style="--value:85%"></span></div></div>
+      </div>
+      <div class="card">
+        <h3>Highlights</h3>
+        <ul>
+          <li>• Viral-ready thumbnails & social kits</li>
+          <li>• Responsive landing pages</li>
+          <li>• Fast, friendly support</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="section-footer">
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+        <a href="#" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <h2>Services</h2>
+    <div class="grid grid-3">
+      <div class="card"><h3>Brand & Logo</h3><p>Modern brand identity packs.</p></div>
+      <div class="card"><h3>Thumbnails</h3><p>Scroll-stopping YouTube, FB, Insta.</p></div>
+      <div class="card"><h3>Web UI</h3><p>Pixel-perfect responsive designs.</p></div>
+      <div class="card"><h3>Motion Graphics</h3><p>Smooth animations & edits.</p></div>
+      <div class="card"><h3>Photo Manipulation</h3><p>Cinematic retouching & mockups.</p></div>
+      <div class="card"><h3>Social Kits</h3><p>Templates, story sets, branding.</p></div>
+    </div>
+    
+    <div class="section-footer">
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+        <a href="#" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="grid grid-3">
+      <div class="card">Logo — Monoline Falcon</div>
+      <div class="card">Poster — Neon Night Market</div>
+      <div class="card">UI — Cafe Landing Page</div>
+      <div class="card">Thumbnail — Tech Review Pop</div>
+      <div class="card">Mockup — Brand Stationery</div>
+      <div class="card">Motion — Title Reveal Pack</div>
+    </div>
+    
+    <div class="section-footer">
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+        <a href="#" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section id="reviews" class="reviews">
+    <h2>Reviews</h2>
+    <div id="reviewBox">
+      <div class="stars">★★★★★</div>
+      <div class="review-text">"Amazing design service, boosted our brand look!"</div>
+      <div>— Client Name</div>
+    </div>
+    
+    <div class="section-footer">
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+        <a href="#" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Connect -->
+  <section id="connect">
+    <h2>Connect</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <form onsubmit="event.preventDefault(); alert('Thanks! Message sent.');">
+          <label>Name</label><br>
+          <input type="text" style="width:100%;padding:10px;margin:5px 0;background:rgba(20,0,0,0.3);border:1px solid rgba(255,0,0,0.2);color:#fff;"><br>
+          <label>Email</label><br>
+          <input type="email" style="width:100%;padding:10px;margin:5px 0;background:rgba(20,0,0,0.3);border:1px solid rgba(255,0,0,0.2);color:#fff;"><br>
+          <label>Message</label><br>
+          <textarea rows="4" style="width:100%;padding:10px;margin:5px 0;background:rgba(20,0,0,0.3);border:1px solid rgba(255,0,0,0.2);color:#fff;"></textarea><br>
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Direct Contact</h3>
+        <p>📞 01568539932</p>
+        <p>✉ rezaulkarimreza4857@gmail.com</p>
+        <p>Available for freelance & collaborations. Dhaka, Bangladesh.</p>
+        
+        <div class="social-icons">
+          <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+          <a href="#" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+          <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="social-icons">
+      <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
+      <a href="#" target="_blank" title="Dribbble"><i class="fab fa-dribbble"></i></a>
+      <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <p>© 2025 RK Creative BD. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Reviews carousel
+    const reviews = [
+      { text: "Super fast delivery & stunning visuals!", name:"Aminul — Startup Founder"},
+      { text: "Thumbnails and reels pop like crazy!", name:"Nadia — Content Creator"},
+      { text: "Logo, menu, posts… professional and friendly.", name:"Mahmud — Restaurant Owner"}
+    ];
+    let index=0;
+    function showReview(){
+      const r = reviews[index];
+      document.getElementById('reviewBox').innerHTML = 
+        `<div class='stars'>★★★★★</div>
+         <div class='review-text'>"${r.text}"</div>
+         <div>— ${r.name}</div>`;
+      index=(index+1)%reviews.length;
+    }
+    setInterval(showReview,3000);
+    
+    // Animation for elements when scrolling
+    document.addEventListener('DOMContentLoaded', function() {
+      const sections = document.querySelectorAll('section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      sections.forEach(section => {
+        section.style.opacity = 0;
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+      });
+    });
+  </script>
+</body>
+</html>
